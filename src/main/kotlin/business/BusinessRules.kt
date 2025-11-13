@@ -39,11 +39,7 @@ fun createAccount(){
 
 fun depositFunds(){
     println("Enter the account number....")
-    val accNumber:String = readln().trim()
-    val account:Account? = ClientAccounts.listOfAllAccounts.find{it.accountNumber == accNumber}
-    if (account == null) {println("Account does not exist")
-        showMenu()
-        return}
+    val account = findAccountOrNull() ?: return
     println("Enter the amount to deposit....")
     val depositAmount = readln().toDouble()
     account.deposit(depositAmount)
@@ -52,14 +48,7 @@ fun depositFunds(){
 
 fun withdrawFunds(){
     println("Enter the account number....")
-    val accNumber:String = readln().trim()
-    val account:Account = ClientAccounts.listOfAllAccounts.find{it.accountNumber == accNumber} ?:
-    run{println("Account does not exist")
-        showMenu()
-        return}
-    /*if (account == null) {println("Account does not exist")
-        showMenu()
-        return}*/
+    val account = findAccountOrNull() ?: return
     println("Enter the amount to withdraw....")
     val withdrawAmount = readln().toDouble()
     account.withdraw(withdrawAmount)
@@ -67,17 +56,9 @@ fun withdrawFunds(){
 
 fun transferFunds(){
     println("Enter your account number....")
-    val accNumber1:String = readln().trim()
-    val account1:Account? = ClientAccounts.listOfAllAccounts.find{it.accountNumber == accNumber1}
-    if (account1 == null) {println("Account does not exist")
-        showMenu()
-        return}
+    val account1 = findAccountOrNull() ?: return
     println("Enter account number to transfer funds....")
-    val accNumber2:String = readln().trim()
-    val account2:Account? = ClientAccounts.listOfAllAccounts.find{it.accountNumber == accNumber2}
-    if (account2 == null) {println("Account does not exist")
-        showMenu()
-        return}
+    val account2 = findAccountOrNull() ?: return
     println("Enter the amount to transfer....")
     val transferAmount = readln().toDouble()
     account1.transfer(account2,transferAmount)
@@ -86,20 +67,23 @@ fun transferFunds(){
 
 fun viewAccount(){
     println("Enter the account number....")
-    val accNumber:String = readln().trim()
-    val account:Account? = ClientAccounts.listOfAllAccounts.find{it.accountNumber == accNumber}
-    if (account == null) {println("Account does not exist")
-        showMenu()
-        return}
+    val account = findAccountOrNull() ?: return
     println("Account Holder : ${account.name}")
     println("Account Number : ${account.accountNumber}")
     println("Account Type : ${account.accountType}")
     println("Current Balance: ${account.balance}")
-    account.transactionList.forEach { it -> println("${it.date}     |  ${it.transactionType}     |  ${it.transactionAmount}     |  ${it.balanceAfterTransaction}     |  ${it.description}") }
+    account.transactionList.forEach { println("${it.date}     |  ${it.transactionType}     |  ${it.transactionAmount}     |  ${it.balanceAfterTransaction}     |  ${it.description}") }
     showMenu()
 
 }
 
-fun accountVerification(accNumber: String):Boolean{
-    return ClientAccounts.listOfAllAccounts.any{it.accountNumber == accNumber}
+fun findAccountOrNull(): Account? {
+    val accNumber = readln().trim()
+    val account = ClientAccounts.listOfAllAccounts.find { it.accountNumber == accNumber }
+
+    if (account == null) {
+        println("❌ Account does not exist.\n")
+        showMenu()
+    }
+    return account
 }
