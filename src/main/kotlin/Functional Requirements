@@ -1,0 +1,60 @@
+Objective:
+
+Simulate basic banking operations in a console application, allowing users to create accounts,
+ deposit/withdraw funds, view balances, and perform transfers.
+
+Functional Requirements:
+
+Account Management
+
+Users can create a new bank account.
+
+Required fields: Account Number (unique), Account Holder Name, Initial Balance.
+
+Users can view account details.
+
+Users can delete an account.
+
+Transactions
+
+Deposit: Add money to an account.
+
+Withdraw: Remove money from an account (with balance check; cannot withdraw more than current balance).
+
+Transfer: Move money from one account to another.
+
+Transaction History: Optional: Keep a log of deposits, withdrawals, and transfers per account.
+
+Account Lookup
+
+Search for an account by account number.
+
+List all accounts with basic details (name, account number, balance).
+
+Input Validation
+
+Validate user inputs (e.g., numbers for deposits/withdrawals, unique account numbers).
+
+Handle invalid inputs gracefully without crashing.
+
+Exit / Menu
+
+Display a menu with options: Create Account, Deposit, Withdraw, Transfer, View Account, List Accounts, Exit.
+
+Loop until the user chooses to exit.
+
+Non-Functional Requirements:
+
+Console-based user interface (text menu).
+
+Use Object-Oriented Programming concepts:
+
+BankAccount class for account representation.
+
+Bank class or object to manage multiple accounts.
+
+Use collections (List or Map) to store accounts.
+
+Optional: Store transaction history using List inside each account.
+
+Optional: Use when statements and functions for clean menu navigation.
