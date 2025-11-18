@@ -2,6 +2,8 @@ package org.example.business
 
 import org.example.model.Account
 import org.example.model.AccountNumberGenerator
+import org.example.model.BusinessAccount
+import org.example.model.CheckingAccount
 import org.example.model.SavingsAccount
 
 object Bank {
@@ -14,7 +16,24 @@ object Bank {
         println("Enter your address!!")
         val address = readln()
        val accountNumber = AccountNumberGenerator.generateUnique16DigitNumber()
-        val account = SavingsAccount(accountNumber,name,address)
+        println("Choose account type:")
+        println("1. Savings")
+        println("2. Checking")
+        println("3. Business")
+
+        val type = readln()
+
+        val account = when (type) {
+            "1" -> SavingsAccount(accountNumber, name, address)
+            "2" -> CheckingAccount(accountNumber, name, address)
+            "3" -> BusinessAccount(accountNumber, name, address)
+            else -> {
+                println("Invalid type.")
+                return
+            }
+        }
+
+
         listOfAllAccounts.add(account)
         println("Welcome  $name,your account has been successfully created.Account number is ${account.accountNumber}")
         showMenu()
