@@ -36,7 +36,7 @@ object Bank {
 
         listOfAllAccounts.add(account)
         println("Welcome  $name,your account has been successfully created.Account number is ${account.accountNumber}")
-        showMenu()
+
     }
 
     fun depositFunds() {
@@ -75,7 +75,7 @@ object Bank {
         println("Home Address : ${account.holderAddress}")
         println("Current Balance: ${account.getBalance()}")
         account.transactionList.forEach { println("${it.date}     |  ${it.transactionType}     |  ${it.transactionAmount}     |  ${it.balanceAfterTransaction}     |  ${it.description}") }
-        showMenu()
+
 
     }
 
@@ -85,7 +85,7 @@ object Bank {
 
         if (account == null) {
             println("❌ Account does not exist.\n")
-            showMenu()
+
         }
         return account
     }

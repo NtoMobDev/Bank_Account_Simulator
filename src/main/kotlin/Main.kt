@@ -12,8 +12,9 @@ import org.example.business.showMenu
 fun main() {
    println("Welcome to our Banking App!!!...")
     println("What would you like to do today?")
-    showMenu()
+
     while(true){
+        showMenu()
         val command = readln()
         when(command.trim()){
             "1" -> createAccount()

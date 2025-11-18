@@ -1,5 +1,5 @@
 package org.example.model
-import org.example.business.showMenu
+
 
 
 
@@ -35,13 +35,13 @@ abstract class Account(val accountNumber: String,
         transaction = Transaction(transactionType = TransactionType.DEPOSIT,
             transactionAmount = amount, balanceAfterTransaction = this.balance, description = "Opening Deposit")
         transactionList.add(transaction)
-        showMenu()
+
         return
 
     }
     fun withdraw(amount: Double){
         if(amount > this.balance) {println("You have insufficient funds.Try again....")
-            showMenu()
+
             return}
         else {
             this.balance -= amount
@@ -49,14 +49,14 @@ abstract class Account(val accountNumber: String,
             transaction = Transaction(transactionType = TransactionType.WITHDRAWAL,
                 transactionAmount = amount, balanceAfterTransaction = this.balance, description = "ATM CASH WITHDRAWAL")
             transactionList.add(transaction)
-            showMenu()
+
             return
         }
     }
     fun transfer(targetAccount: Account,amount: Double){
 
         if(amount > this.balance) {println("You have insufficient funds.Try again....")
-            showMenu()
+
             return}
         else {
 
@@ -66,7 +66,7 @@ abstract class Account(val accountNumber: String,
                 transactionAmount = amount, balanceAfterTransaction = this.balance,
                 description = "Sent to ${targetAccount.accountNumber}")
             transactionList.add(transaction)
-            showMenu()
+
             return }
 
 
