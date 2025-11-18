@@ -2,6 +2,7 @@ package org.example.model
 import org.example.business.showMenu
 
 
+
 // Generates unique 6-digit account numbers where the first digit is not zero
 object AccountNumberGenerator {
     private val usedNumbers = mutableSetOf<String>()
@@ -19,15 +20,16 @@ object AccountNumberGenerator {
     }
 }
 
-data class Account(val accountNumber: String = AccountNumberGenerator.generateUnique16DigitNumber(),
-                   val accountType:String,
-                   val name:String,
-                   var balance:Double = 0.0){
-
+abstract class Account(val accountNumber: String,
+                       val holderName: String,
+                       val holderAddress: String
+                   ){
+    private var balance:Double = 0.0
     val transactionList:MutableList<Transaction> = mutableListOf()
     lateinit var transaction: Transaction
 
     fun deposit(amount:Double){
+        require(amount > 0)
         this.balance += amount
         println("Transaction Successful.Bank balance  for ${this.accountNumber}is now ${this.balance}")
         transaction = Transaction(transactionType = TransactionType.DEPOSIT,
@@ -40,7 +42,7 @@ data class Account(val accountNumber: String = AccountNumberGenerator.generateUn
     fun withdraw(amount: Double){
         if(amount > this.balance) {println("You have insufficient funds.Try again....")
             showMenu()
-        return}
+            return}
         else {
             this.balance -= amount
             println("Transaction Successful.Bank balance  for ${this.accountNumber}is now ${this.balance}")
@@ -51,7 +53,7 @@ data class Account(val accountNumber: String = AccountNumberGenerator.generateUn
             return
         }
     }
-    fun transfer(receivingAccount: Account,amount: Double){
+    fun transfer(targetAccount: Account,amount: Double){
 
         if(amount > this.balance) {println("You have insufficient funds.Try again....")
             showMenu()
@@ -62,7 +64,7 @@ data class Account(val accountNumber: String = AccountNumberGenerator.generateUn
             println("Transaction Successful.Bank balance  for ${this.accountNumber}is now ${this.balance}")
             transaction = Transaction(transactionType = TransactionType.TRANSFER,
                 transactionAmount = amount, balanceAfterTransaction = this.balance,
-                description = "Sent to ${receivingAccount.accountNumber}")
+                description = "Sent to ${targetAccount.accountNumber}")
             transactionList.add(transaction)
             showMenu()
             return }
@@ -80,8 +82,15 @@ data class Account(val accountNumber: String = AccountNumberGenerator.generateUn
 
     }
 
+    fun getBalance(): Double = balance
 
+    protected fun addToBalance(amount: Double) {
+        balance += amount
+    }
 
+    abstract fun applyInterest()
 }
+
+
 
 

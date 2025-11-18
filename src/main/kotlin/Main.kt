@@ -1,11 +1,11 @@
 package org.example
-
-import org.example.business.createAccount
-import org.example.business.depositFunds
+import org.example.business.Bank.createAccount
+import org.example.business.Bank.depositFunds
+import org.example.business.Bank.transferFunds
+import org.example.business.Bank.viewAccount
+import org.example.business.Bank.withdrawFunds
 import org.example.business.showMenu
-import org.example.business.transferFunds
-import org.example.business.viewAccount
-import org.example.business.withdrawFunds
+
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
